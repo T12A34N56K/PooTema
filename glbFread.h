@@ -3,18 +3,18 @@
 #include <fstream>
 #include <string>
 
-class Fread
+class Fread // wrapper pentru ifstream
 {
 private:
-    static std::ifstream fin;
+    static std::ifstream fin; // variabila de baza
 public:
-    static void fOpen(std::string fName){
+    static void fOpen(std::string fName){ // deschiderea unui nou fisier
         fin.open(fName);
     }
-    static void fClose(){
+    static void fClose(){ // inchidere
         fin.close();
     }
-    template <typename T>
+    template <typename T> // citire cu template
     static void fRead(T &t){
         fin>>t;
     }

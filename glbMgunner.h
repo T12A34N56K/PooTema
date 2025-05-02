@@ -3,7 +3,7 @@
 #include "glbBot.h" 
 #include "glbData.h"
 
-class Mgunner: public Bot{
+class Mgunner: public Bot{ // clasas derivata pentru bot
 private:
     int protector;
 public:

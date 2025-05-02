@@ -5,11 +5,11 @@
 
 class Data{
 protected:
-    Data(){};
-    std::vector<Bot*> team1, team2;
-    std::vector<std::vector<int*>>pos;
+    Data(){}; // constructor privat deoarece siingleton
+    std::vector<Bot*> team1, team2; // vectori cu cele 2 echipe
+    std::vector<std::vector<int*>>pos; // vector cu coord x y ale tuturor
 public:
-    static Data& getData(){
+    static Data& getData(){ // pentru a accesa singletonul
         static Data data;
         return data;
     }
