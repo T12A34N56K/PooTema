@@ -6,9 +6,9 @@
 #include <math.h>
 #include <memory>
 
-class ActualActiune: public Code{
+class ActualActiune: public Code{ // implementarea clasei actiune
 private:
-    int dist, act;
+    int dist, act; // noi variabile pentru apropiere si actiune
 public:
     void setDist(int ndist){
         dist=ndist;
@@ -17,9 +17,9 @@ public:
         act=nact;
     }
     void craeteTree(Bot* tinta){
-        Code::craeteTree(tinta);
+        Code::craeteTree(tinta); // conditiile vechi
         std::string adaus;
-        Fread::fRead(adaus);
+        Fread::fRead(adaus); // la care se adauga ceva nou
 
         if(adaus=="dist"){
             Fread::fRead(dist);
@@ -30,9 +30,9 @@ public:
         }
     }
     std::vector<Bot*> verBot(Bot* tinta, const std::vector<Bot*> &lista){
-        std::vector<Bot*> tinte = Code::verBot(tinta, lista);
+        std::vector<Bot*> tinte = Code::verBot(tinta, lista); // verificarea veche
         Bot *tintaf;
-        if(dist==1){
+        if(dist==1){ // din care se alege doar un element
             int d=sqrt(2*50*51);
             for(auto i : tinte){
                 int d1=sqrt(pow(tinta->getX()-i->getX(), 2)+pow(tinta->getX()-i->getY(), 2));
@@ -52,7 +52,7 @@ public:
                 }
             }
         }
-        if(act==1){
+        if(act==1){ // asupra caruia se actioneaza
             tinta->shoot(tintaf);
             return {tintaf};
         }
@@ -75,7 +75,7 @@ public:
         return {};
     }
     bool operator()(Bot* tinta){
-        std::vector<Bot*> lista;
+        std::vector<Bot*> lista; // lista de tinte
         if(aliance==0){
             lista.push_back(tinta);
         }
@@ -89,7 +89,7 @@ public:
             lista=*Data::getData().Team1();
             lista.insert(lista.end(), Data::getData().Team2()->begin(), Data::getData().Team2()->end());
         }
-        std::vector<Bot*> x = verBot(tinta, lista);
+        std::vector<Bot*> x = verBot(tinta, lista); // care se verifica
         if(x.size()){
             return 1;
         }
@@ -97,8 +97,8 @@ public:
     }
 };
 
-Actiune::Actiune(): code_(new ActualActiune()){}
-void Actiune::setDist(int ndist){
+Actiune::Actiune(): code_(new ActualActiune()){} // constructor pentru actiune normal
+void Actiune::setDist(int ndist){ // functi care au rolul de a pointa catre functi din ActualActiune
     if(auto* act = dynamic_cast<ActualActiune*>(code_.get())){
         act->setDist(ndist);
     }

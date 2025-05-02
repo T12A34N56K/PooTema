@@ -8,14 +8,14 @@
 #include <string>
 #include <algorithm>
 
-class Code{
-protected:
-    std::vector<std::string> tclass;
+class Code{ // clasa de baza code
+protected: // conditiile
+    std::vector<std::string> tclass; 
     int minh=-1, maxh=-1, mins=-1, maxs=-1, minsh=-1, maxsh=-1, ttc, ptc, aliance, dist1=0, dist2=0, dist3=0, adist=0;
     std::vector<int>tt;
     std::vector<int>pt;
 public:
-    Code operator=(const Code &cod){
+    Code operator=(const Code &cod){ // copiere
         if(this!=&cod){
             this->tclass=cod.tclass;
             this->minh=cod.minh;
@@ -36,9 +36,9 @@ public:
         }
         return *this;
     }
-    virtual void craeteTree(Bot* tinta){
+    virtual void craeteTree(Bot* tinta){ // crearea de cod
         std::string adaus;
-        Fread::fRead(adaus);
+        Fread::fRead(adaus); //citeste noua conditie si apoi o adaug
         if(adaus=="class("){
             while(true){
                 Fread::fRead(adaus);
@@ -103,9 +103,9 @@ public:
             aliance=3;
         }
     }
-    virtual std::vector<Bot*> verBot(Bot* tinta, const std::vector<Bot*> &lista){
+    virtual std::vector<Bot*> verBot(Bot* tinta, const std::vector<Bot*> &lista){ // creez o lista de bot care respecta conditia
         std::vector<Bot*>tinte;
-        if(tclass.size()){
+        if(tclass.size()){ //conditia de clasa
             for(auto i : tclass){
                 int k=2;
                 if(i == "Sniper"){
@@ -127,7 +127,7 @@ public:
         else{
             tinte=lista;
         }
-        if(dist1 || dist2 || dist3 || adist){
+        if(dist1 || dist2 || dist3 || adist){ // conditia de distanta
             for(int i=0; i<tinte.size(); i++){
                 if(!dist1 && !sqrt(pow(tinta->getX() - tinte[i]->getX(), 2) + pow(tinta->getY() - tinte[i]->getY(), 2))/5){
                     tinte.erase(tinte.begin()+i);
@@ -147,18 +147,18 @@ public:
                 }
             }
         }
-        for (auto i : tinte){
+        for (auto i : tinte){ // health
             if(minh>=0 && maxh>=minh){
                 if(!(minh<=i->getHealth() && i->getHealth()<=maxh)){
                     tinte.erase(std::find(tinte.begin(), tinte.end(), i));
                 }
             }
-            if(mins>=0 && maxs>=mins){
+            if(mins>=0 && maxs>=mins){ // shields
                 if(!(mins<=i->getShield() && i->getShield()<=maxs)){
                     tinte.erase(std::find(tinte.begin(), tinte.end(), i));
                 }
             }
-            if(minsh>=0 && maxsh>=minsh){
+            if(minsh>=0 && maxsh>=minsh){ // ambele
                 if(!(minsh<=(i->getHealth() + i->getShield()) && (i->getHealth() + i->getShield())<=maxsh)){
                     tinte.erase(std::find(tinte.begin(), tinte.end(), i));
                 }
