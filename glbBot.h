@@ -21,8 +21,9 @@ public:
     }
     //constructor
     Bot(int h, int s1, int s2, int rpm, int a1, int a2, int a3, int d, int s3, int x, int y, int cls): health(h), shield(s1), speed(s2), rpt(rpm), acuracy1(a1), acuracy2(a2), acuracy3(a3), damage(d), setup(s3), x(x), y(y), cls(cls), id(idn++), chealth(h), cshield(s1){}
+    virtual Bot *clone() const = 0;
     void shoot(Bot *tinta, int ign=0){ // functia de tras
-        int dist=sqrt((tinta->getX()-x)*(tinta->getX()-x)+(tinta->getY()-y)*(tinta->getY()-y))/5, ac=0, dmg=0; //afla distanta
+        int dist=sqrt((tinta->getX()-x)*(tinta->getX()-x)+(tinta->getY()-y)*(tinta->getY()-y))/5, ac=0; //afla distanta
         if(dist==0){ //seteaza precizia
             ac=acuracy1;
         }
@@ -35,10 +36,15 @@ public:
         for(int j=0; j<rpt; j++){ //calculeaza daunele
             int i=rand()%100;
             if(ac>i){
-                dmg+=damage;
+                try{
+                    tinta->takeDmg(damage, ign); //creaza daunele
+                }
+                catch (int &i){
+                    std::cout<<"catch: "<<i;
+                    break;
+                }
             }
         }
-        tinta->takeDmg(dmg, ign); //creaza daunele
     }
     void stats(){ // printarea statisticilor
         std::cout<<"\n\nid: "<<id;
@@ -102,7 +108,7 @@ public:
     int getHealth(){
         return chealth;
     }
-    bool takeDmg(int dmg, int ignshld){ // take dmg
+    void takeDmg(int dmg, int ignshld){ // take dmg
         if(cshield>0 && !ignshld){ // verifica daca mai are ce scuturi
             cshield-=dmg; // ia damage
             if(cshield<0){ // daca a ramas fara scuturi
@@ -115,9 +121,10 @@ public:
         }
         if(chealth<=0){ // daca nu mai are viata
             delete this; // moare
-            return 1;
+            std::cout<<"before";
+            throw chealth;
+            std::cout<<"after";
         }
-        return 0;
     }
     virtual ~Bot(){ // destructor virtual
         std::cout<<"BotDown!\n";

@@ -8,6 +8,9 @@ private:
     int sprnt;
 public:
     Breacher(int x, int y): Bot(300, 300, 2, 5, 90, 30, 10, 30, 0, x, y, 3), sprnt(0){} //constructor specific
+    Bot *clone() const override{
+        return new Breacher(*this);
+    }
     void spdbost(int xn ,int yn, std::vector<std::vector<int*>>&pos){ // abilitatea de clasa
         if(sprnt<3){
             sprnt++;

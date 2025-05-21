@@ -8,6 +8,9 @@ private:
     int apr;
 public:
     Sniper(int x, int y): Bot(200, 100, 1, 1, 100, 100, 100, 150, 1, x, y, 4), apr(0){}
+    Bot *clone() const override{
+        return new Sniper(*this);
+    }
     void ap(Bot* tinta){
         if(apr==0){
             apr=1;
