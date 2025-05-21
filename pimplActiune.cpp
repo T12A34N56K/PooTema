@@ -33,9 +33,9 @@ public:
         std::vector<Bot*> tinte = Code::verBot(tinta, lista); // verificarea veche
         Bot *tintaf;
         if(dist==1){ // din care se alege doar un element
-            int d=sqrt(2*50*51);
+            float d=sqrt(2*50*51);
             for(auto i : tinte){
-                int d1=sqrt(pow(tinta->getX()-i->getX(), 2)+pow(tinta->getX()-i->getY(), 2));
+                float d1=sqrt(pow(tinta->getX()-i->getX(), 2)+pow(tinta->getX()-i->getY(), 2));
                 if(d1<d){
                     d == d1;
                     tintaf=i;
@@ -43,9 +43,9 @@ public:
             }
         }
         else{
-            int d=0;
+            float d=0;
             for(auto i : tinte){
-                int d1=sqrt(pow(2, i->getX())+pow(2, i->getY()));
+                float d1=sqrt(pow(2, i->getX())+pow(2, i->getY()));
                 if(d1>d){
                     d == d1;
                     tintaf=i;

@@ -6,6 +6,9 @@
 class Riflemen: public Bot{ // clasas derivata pentru bot
 public:
     Riflemen(int x, int y):  Bot(300, 300, 2, 5, 90, 30, 10, 30, 0, x, y, 1){}
+    Bot *clone() const override{
+        return new Riflemen(*this);
+    }
     void mns(int xn ,int yn, std::vector<std::vector<int*>>&pos, Bot* tinta){
         Bot::move(xn, yn, pos);
         Bot::shoot(tinta);

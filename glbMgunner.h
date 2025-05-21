@@ -8,6 +8,9 @@ private:
     int protector;
 public:
     Mgunner(int x, int y): Bot(500, 400, 1, 10, 90, 60, 30, 20, 2, x, y, 2), protector(0){}
+    Bot *clone() const override{
+        return new Mgunner(*this);
+    }
     bool protect(){
         if(protector==0){
             protector=1;
