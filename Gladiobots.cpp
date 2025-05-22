@@ -9,6 +9,7 @@
 #include "glbMgunner.h"
 #include "glbRiflemen.h"
 #include "glbSniper.h"
+#include "glbFactory.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -20,8 +21,13 @@ int main(){
 
     Data::getData(); //initializez Data
     std::vector<AI> team1, team2; //cele doua echipe care se vor lupta
-    team1.reserve(9);
-    team2.reserve(9);
+    team1.reserve(8);
+    team2.reserve(8);
+    
+    CreateBreacher *facBreacher = new CreateBreacher;
+    CreateMgunner *facMgunner = new CreateMgunner;
+    CreateRiflemen *facRiflemen = new CreateRiflemen;
+    CreateSniper *facSniper = new CreateSniper;
 
     std::cout<<"WeLcome to Gladiobots, AI Combat areana!\n\nYou will have to give the x and y coordenates of 8 Bots, keeping in mind that the arena is a 50x50 grid, and their respective combat classes: 1. Riflemen, 2. MachineGunner, 3. Breacher, 4. Sniper.\n\n";
 
@@ -33,19 +39,19 @@ int main(){
         std::cin>>c;
         Bot* bot; //creez un jucator nou
         if (c==2){
-            bot = new Mgunner(x, y);
+            bot = facMgunner->FactoryMethod(x, y);
             Data::getData().Team1()->push_back(bot);
         }
         else if (c==4){
-            bot = new Sniper(x, y);
+            bot = facSniper->FactoryMethod(x, y);
             Data::getData().Team1()->push_back(bot);
         }
         else if (c==3){
-            bot = new Breacher(x, y);
+            bot = facBreacher->FactoryMethod(x, y);
             Data::getData().Team1()->push_back(bot);
         }
         else{
-            bot = new Riflemen(x, y);
+            bot = facRiflemen->FactoryMethod(x, y);
             Data::getData().Team1()->push_back(bot);
         }
         Data::getData().Pos()->push_back({Data::getData().Team1()->at(i)->pGetX(), Data::getData().Team1()->at(i)->pGetY()});
@@ -58,19 +64,19 @@ int main(){
         y=i%4+1;
         Bot *bot;
         if (y==2){
-            bot = new Mgunner(50-x, y);
+            bot = facMgunner->FactoryMethod(50-x, y);
             Data::getData().Team2()->push_back(bot);
         }
         else if (y==4){
-            bot = new Sniper(50-x, y);
+            bot = facSniper->FactoryMethod(50-x, y);
             Data::getData().Team2()->push_back(bot);
         }
         else if (y==3){
-            bot = new Breacher(50-x, y);
+            bot = facBreacher->FactoryMethod(50-x, y);
             Data::getData().Team2()->push_back(bot);
         }
         else{
-            bot = new Riflemen(50-x, y);
+            bot = facRiflemen->FactoryMethod(50-x, y);
             Data::getData().Team2()->push_back(bot);
         }
         Data::getData().Pos()->push_back({Data::getData().Team2()->at(i)->pGetX(), Data::getData().Team2()->at(i)->pGetY()});
