@@ -15,27 +15,6 @@ protected: // conditiile
     std::vector<int>tt;
     std::vector<int>pt;
 public:
-    // Code operator=(const Code &cod){ // copiere
-    //     if(this!=&cod){
-    //         this->tclass=cod.tclass;
-    //         this->minh=cod.minh;
-    //         this->maxh=cod.maxh;
-    //         this->mins=cod.mins;
-    //         this->maxs=cod.maxs;
-    //         this->minsh=cod.minsh;
-    //         this->maxsh=cod.maxsh;
-    //         this->ttc=cod.ttc;
-    //         this->ptc=cod.ptc;
-    //         this->aliance=cod.aliance;
-    //         this->dist1=cod.dist1;
-    //         this->dist2=cod.dist2;
-    //         this->dist3=cod.dist3;
-    //         this->adist=cod.adist;
-    //         this->tt=cod.tt;
-    //         this->pt=cod.pt;
-    //     }
-    //     return *this;
-    // }
     virtual void craeteTree(Bot* tinta){ // crearea de cod
         std::string adaus;
         Fread::fRead(adaus); //citeste noua conditie si apoi o adaug
