@@ -40,7 +40,6 @@ public:
                     tinta->takeDmg(damage, ign); //creaza daunele
                 }
                 catch (int &i){
-                    std::cout<<"catch: "<<i;
                     break;
                 }
             }
@@ -121,9 +120,7 @@ public:
         }
         if(chealth<=0){ // daca nu mai are viata
             delete this; // moare
-            std::cout<<"before";
             throw chealth;
-            std::cout<<"after";
         }
     }
     virtual ~Bot(){ // destructor virtual
